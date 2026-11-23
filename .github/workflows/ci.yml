@@ -1,0 +1,13 @@
+name: PHP Tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_sqlite
+      - run: php -l src/Ledger.php && php -l public/index.php && php -l tests/LedgerTest.php
+      - run: php tests/LedgerTest.php
